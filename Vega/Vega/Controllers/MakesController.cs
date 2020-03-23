@@ -22,7 +22,7 @@ namespace Vega.Controllers
             this.mapper = mapper;
         }
 
-        [HttpGet("/API/Makes")]
+        [HttpGet("/api/makes")]
         public async Task<IEnumerable<MakeResource>> GetMakes()
         {
             var makes = await context.Makes.Include(m => m.Models).ToListAsync();
