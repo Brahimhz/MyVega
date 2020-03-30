@@ -1,0 +1,20 @@
+﻿using System.Threading.Tasks;
+using Vega.Core;
+
+namespace Vega.Persistance
+{
+    public class UnitOfWork : IUnitOfWork
+    {
+        private VegaDbContext context;
+
+        public UnitOfWork(VegaDbContext context)
+        {
+            this.context = context;
+        }
+
+        public async Task CompleteAsync()
+        {
+            await context.SaveChangesAsync();
+        }
+    }
+}

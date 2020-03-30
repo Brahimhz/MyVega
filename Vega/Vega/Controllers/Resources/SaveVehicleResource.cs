@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 
 namespace Vega.Controllers.Resources
 {
-    public class VehicleResource
+    public class SaveVehicleResource
     {
         public int Id { get; set; }
         public int ModelId { get; set; }
@@ -17,7 +17,7 @@ namespace Vega.Controllers.Resources
 
         public ICollection<int> Features { get; set; }
 
-        public VehicleResource()
+        public SaveVehicleResource()
         {
             Features = new Collection<int>();
         }

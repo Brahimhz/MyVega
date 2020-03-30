@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Vega.Controllers.Resources;
-using Vega.Models;
+using Vega.Core.Models;
 using Vega.Persistance;
 
 namespace Vega.Controllers
@@ -22,11 +22,11 @@ namespace Vega.Controllers
 
 
         [HttpGet("api/features")]
-        public async Task<IEnumerable<FeatureResource>> getFeatures()
+        public async Task<IEnumerable<KeyValuePairResource>> getFeatures()
         {
             var features = await context.Features.ToListAsync();
 
-            return mapper.Map<List<Feature>, List<FeatureResource>>(features);
+            return mapper.Map<List<Feature>, List<KeyValuePairResource>>(features);
         }
     }
 }
