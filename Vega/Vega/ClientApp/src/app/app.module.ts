@@ -1,9 +1,9 @@
+
 import { FormsModule } from '@angular/forms';
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler, Injectable } from '@angular/core';
 import { RouterModule } from '@angular/router';
-
 import { BrowserModule } from '@angular/platform-browser';
-
+import { ToastyModule } from 'ng2-toasty'
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 
@@ -14,7 +14,9 @@ import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { VehicleFormComponent } from './vehicle-form/vehicle-form.component';
 
-import { VehiculeService } from './services/vehicule.service';
+import { VehicleService } from './services/vehicle.service';
+import { AppErrorHandler } from './app.error-handler';
+
 
 
 @NgModule({
@@ -32,15 +34,19 @@ import { VehiculeService } from './services/vehicule.service';
     HttpModule,
     HttpClientModule,
     FormsModule,
+    ToastyModule.forRoot(),
     RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
+      { path: 'home', component: HomeComponent },
       { path: 'counter', component: CounterComponent },
       { path: 'vehicles/new', component: VehicleFormComponent },
+      { path: 'vehicles/:id', component: VehicleFormComponent },
       { path: 'fetch-data', component: FetchDataComponent },
     ])
   ],
   providers: [
-    VehiculeService
+    { provide: ErrorHandler, useClass: AppErrorHandler },
+    VehicleService
   ]
 })
 export class AppModule { }

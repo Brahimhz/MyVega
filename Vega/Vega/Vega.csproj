@@ -15,8 +15,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="angular-toasty.TypeScript.DefinitelyTyped" Version="0.7.1" />
+    <PackageReference Include="AngularJS.Animate" Version="1.7.9" />
+    <PackageReference Include="AngularJS.Bundled" Version="1.2.26" />
+    <PackageReference Include="AngularJS.Cookies" Version="1.7.9" />
+    <PackageReference Include="AngularJS.Core" Version="1.7.9" />
+    <PackageReference Include="AngularJS.Messages" Version="1.7.9" />
+    <PackageReference Include="AngularJS.Resource" Version="1.7.9" />
+    <PackageReference Include="AngularJS.Route" Version="1.7.9" />
+    <PackageReference Include="AngularJS.Sanitize" Version="1.7.9" />
+    <PackageReference Include="AngularJS.Touch" Version="1.7.9" />
     <PackageReference Include="AutoMapper" Version="9.0.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="jquery.TypeScript.DefinitelyTyped" Version="3.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="2.1.1" />
@@ -25,6 +36,8 @@
     <PackageReference Include="Microsoft.Identity.Client" Version="4.10.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.10" />
     <PackageReference Include="Node.js" Version="5.3.0" />
+    <PackageReference Include="toastr" Version="2.1.1" />
+    <PackageReference Include="tslint" Version="5.17.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -36,6 +49,16 @@
   <ItemGroup>
     <Compile Remove="Migrations\20200319042820_InitialModel.cs" />
     <Compile Remove="Migrations\20200319042820_InitialModel.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="ClientApp\src\app\app.error-handler.ts" />
+    <None Remove="ClientApp\src\app\models\vehicle.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\app.error-handler.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\vehicle.ts" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
@@ -63,6 +86,14 @@
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       </ResolvedFileToPublish>
     </ItemGroup>
+  </Target>
+
+  <Target Name="RunWebpack" AfterTargets="ComputeFilesToPublish">
+    <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
+    <Exec Command="npm install" />
+    <Exec Command="node node_modules/webpack/bin/webpack.js --config webpack.config.vendor.js --env.prod" />
+    <Exec Command="node node_modules/webpack/bin/webpack.js --env.prod" />
+    <!-- other stuff -->
   </Target>
 
 </Project>
