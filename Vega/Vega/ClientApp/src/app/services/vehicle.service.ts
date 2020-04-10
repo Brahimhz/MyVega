@@ -6,9 +6,15 @@ import { SaveVehicle } from '../models/vehicle';
 
 @Injectable()
 export class VehicleService {
- 
+
+  private readonly vehiclesApi = '/api/vehicles/';
 
   constructor(private http: Http) { }
+
+  getModels() {
+    return this.http.get('/api/models')
+      .map(res => res.json());
+  }
 
   getMakes() {
     return this.http.get('/api/makes')
@@ -21,21 +27,38 @@ export class VehicleService {
   }
 
   create(vehicle) {
-    return this.http.post("/api/vehicles", vehicle)
+    return this.http.post(this.vehiclesApi, vehicle)
       .map(res => res.json());
   }
 
   getVehicle(id) {
-    return this.http.get('/api/vehicles/' + id)
+    return this.http.get(this.vehiclesApi + id)
       .map(res => res.json());
   }
 
   update(vehicle: SaveVehicle) {
-    return this.http.put('/api/vehicles/' + vehicle.id, vehicle)
+    return this.http.put(this.vehiclesApi + vehicle.id, vehicle)
       .map(res => res.json());
   }
   delete(id: number) {
-    return this.http.delete('/api/vehicles/' + id)
+    return this.http.delete(this.vehiclesApi + id)
       .map(res => res.json());
+  }
+
+  getVehicles(filter) {
+    return this.http.get(this.vehiclesApi + '?' + this.toQueryString(filter))
+      .map(res => res.json());
+  }
+
+  toQueryString(obj) {
+    var parts = [];
+
+    for (var property in obj) {
+      var value = obj[property];  // obj.property <==>  obj[property]
+      if (value != null && value != undefined)
+        parts.push(encodeURIComponent(property) + '=' + encodeURIComponent(value));
+    }
+
+    return parts.join('&');
   }
 }

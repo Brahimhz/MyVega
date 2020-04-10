@@ -8,5 +8,7 @@ namespace Vega.Core
 
         void Add(Vehicle vehicle);
         void Remove(Vehicle vehicle);
+
+        Task<QueryResult<Vehicle>> GetVehicles(VehicleQuery filter);
     }
 }
