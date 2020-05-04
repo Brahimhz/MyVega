@@ -22,6 +22,8 @@ import { ViewVehicleComponent } from './view-vehicle/view-vehicle.component';
 import { PhotoService } from './services/photo.service';
 import { Browser } from 'protractor';
 import { BrowserXhrWithProgress, ProgressService } from './services/progress.service';
+import { AuthService } from './services/auth.service';
+
 
 
 
@@ -60,7 +62,8 @@ import { BrowserXhrWithProgress, ProgressService } from './services/progress.ser
     { provide: BrowserXhr, useClass: BrowserXhrWithProgress },
     VehicleService,
     PhotoService,
-    ProgressService
+    ProgressService,
+    AuthService
   ]
 })
 export class AppModule { }
